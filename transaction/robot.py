@@ -6,6 +6,7 @@ from qiubai import QbAPI
 from qulishi import QulishiAPI
 from baiduting import BaiDuTingAPI
 from mjtt import MjttAPI
+import os
 
 class RobotAPI():
     def __init__(self):
@@ -30,6 +31,8 @@ class RobotAPI():
                     res['msgtype'], res['content'] = RobotService.meiju()
         except:
             res['msgtype'], res['content'] = 'text', u'系统繁忙，请稍后重试'
+            if os.getenv('APP_DEBUG') == 'True':
+                raise
         return res
 
 class RobotService():
@@ -52,7 +55,7 @@ class RobotService():
     def bsjoke(cls):
         bs = BsAPI()
         return bs.get()
-    
+
     # get QiuBai
     @classmethod
     def qbjoke(cls):
