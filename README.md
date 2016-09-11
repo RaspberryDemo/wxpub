@@ -1,6 +1,14 @@
 微信公众平台Python实现示例
 ============================
 
+安装依赖环境
+----------------------------
+```bash
+sudo pip install -r requirements.txt
+sudo apt-get install nginx -y
+
+```
+
 使用gunicorn部署
 ----------------------------
 ```bash
