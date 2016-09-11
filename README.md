@@ -21,3 +21,10 @@ server {
   }
 
 ```
+
+重启nginx服务
+----------------------------
+```bash
+sudo service nginx restart
+
+```
