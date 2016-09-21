@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
-        <title>WeUI</title>
+        <title>在线监测</title>
         <!-- 引入 WeUI -->
         <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/0.4.2/weui.css"/>
     </head>
