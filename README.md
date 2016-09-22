@@ -36,3 +36,48 @@ server {
 sudo service nginx restart
 
 ```
+
+创建微信公众号菜单
+----------------------------
+使用一下内容创建菜单
+```bash
+{
+    "button": [
+        {
+            "type": "click", 
+            "name": "内涵段子", 
+            "key": "MY_JOKE", 
+            "sub_button": [ ]
+        }, 
+        {
+            "name": "精品服务", 
+            "sub_button": [
+                {
+                    "type": "click", 
+                    "name": "美剧资讯", 
+                    "key": "MY_MEIJU", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "click", 
+                    "name": "随便听听", 
+                    "key": "MY_MUSIC", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "view", 
+                    "name": "服务检测", 
+                    "url": "http://loveme.tpddns.cn/status", 
+                    "sub_button": [ ]
+                }, 
+                {
+                    "type": "click", 
+                    "name": "历史趣闻", 
+                    "key": "MY_HISTORY", 
+                    "sub_button": [ ]
+                }
+            ]
+        }
+    ]
+}
+```
