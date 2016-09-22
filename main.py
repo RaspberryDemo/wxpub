@@ -4,12 +4,11 @@
 from flask import Flask, g, request
 from weixin.micros import WeixinAPI
 from transaction.robot import RobotAPI
-from jinja2 import Environment, FileSystemLoader
+from web.monitor import monitor
 import logging
-import os
-import commands
 
 app = Flask(__name__)
+app.register_blueprint(monitor)
 
 TOKEN = 'wexin123'
 
@@ -17,30 +16,6 @@ TOKEN = 'wexin123'
 def hello():
     msg = request.args.get('name', 'bob')
     return "Hello, %s! - Flask" % msg
-
-@app.route('/status')
-def check_status():
-    THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-    env = Environment(loader=FileSystemLoader(THIS_DIR))
-    template = env.get_template('weixin/template/status.tpl')
-    items = []
-    
-    result= commands.getstatusoutput('supervisorctl status wxpub')
-    print result
-    up = True if 'RUNNING' in result[1] else False
-    it = {'service': u'公众号服务', 'up': up}
-    items.append(it)
-    result= commands.getstatusoutput('supervisorctl status wxschtask')
-    print result
-    up = True if 'RUNNING' in result[1] else False
-    it = {'service': u'公众号定时推送', 'up': up}
-    items.append(it)
-    result= commands.getstatusoutput('supervisorctl status iss')
-    print result
-    up = True if 'RUNNING' in result[1] else False
-    it = {'service': u'虚拟网服务', 'up': up}
-    items.append(it)
-    return template.render(items=items)
 
 @app.route('/weixin', methods = ['GET', 'POST'])
 def wechat():
