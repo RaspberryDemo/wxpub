@@ -5,10 +5,12 @@ from flask import Flask, g, request
 from weixin.micros import WeixinAPI
 from transaction.robot import RobotAPI
 from web.monitor import monitor
+from web.jsmm import jsmm
 import logging
 
 app = Flask(__name__)
 app.register_blueprint(monitor)
+app.register_blueprint(jsmm)
 
 TOKEN = 'wexin123'
 
