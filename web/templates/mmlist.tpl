@@ -13,14 +13,14 @@
 
 <body>
    <ul class="piclist" id="piclist">
-   {% for image in images %}
+   {% for mm in mmlist %}
    <li>
    <h2>
-   <a href="#">{{ image.alt }}</a>
+   <a href="">{{ alt }} - {{ loop.index }}</a>
    </h2>
    <div class="pic">
-   <a href="/immall?key={{ image.img }}">
-   <img src="{{ image.img }}" alt="{{ image.alt }}" />
+   <a href="#">
+   <img src="{{ mm }}" alt="{{ alt }}" />
    </a>
    </div>
    <div class="info"><span>{{ dt }} 发布</span><span class="like">浏览(100+)</span></div>
