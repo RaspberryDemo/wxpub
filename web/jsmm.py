@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding:utf-8-*-
 
-from flask import Blueprint,request
+from flask import Blueprint,request,url_for,render_template
 from jinja2 import Environment, FileSystemLoader
 from pymongo import *
 import os
@@ -38,6 +38,7 @@ def get_mm_all_images():
     if not images.count():
         return 'not found'
     mmlist = images[0]['images']
+    aliaslist = images[0]['alias']
     alt = images[0]['alt']
     dt = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -46,5 +47,6 @@ def get_mm_all_images():
     template = env.get_template('templates/mmlist.tpl')
     items = []
     
-    return template.render(mmlist=mmlist, dt=dt, alt=alt)
+    #return template.render(mmlist=mmlist, aliaslist=aliaslist, dt=dt, alt=alt)
+    return render_template('mmlist.tpl', mmlist=mmlist, aliaslist=aliaslist, dt=dt, alt=alt)
 

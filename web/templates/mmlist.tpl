@@ -13,13 +13,15 @@
 
 <body>
    <ul class="piclist" id="piclist">
-   {% for mm in mmlist %}
+   {% for alias in aliaslist %}
    <li>
    <h2>
    <a href="">{{ alt }} - {{ loop.index }}</a>
    </h2>
    <div class="pic">
-   <a href="{{ mm }}"><img src="{{ mm }}" alt="{{ alt }}" /></a>
+   <a href="{{ (url_for('static', filename=alias)) }}">
+      <img src="{{ (url_for('static', filename=alias)) }}" alt="{{ alt }}" />
+   </a>
    </div>
    <div class="info"><span>{{ dt }} 发布</span><span class="like">浏览(100+)</span></div>
    </li>
