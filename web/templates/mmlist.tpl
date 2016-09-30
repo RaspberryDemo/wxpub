@@ -19,14 +19,11 @@
    <a href="">{{ alt }} - {{ loop.index }}</a>
    </h2>
    <div class="pic">
-   <a href="#">
-   <img src="{{ mm }}" alt="{{ alt }}" />
-   </a>
+   <a href="{{ mm }}"><img src="{{ mm }}" alt="{{ alt }}" /></a>
    </div>
    <div class="info"><span>{{ dt }} 发布</span><span class="like">浏览(100+)</span></div>
    </li>
    {% endfor %}
-
-</ul>
-
+   </ul>
+ </body>
 </html>

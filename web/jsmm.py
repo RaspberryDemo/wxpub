@@ -21,7 +21,7 @@ def get_mm_images():
     db = client.mmdb
     mmc = db.mmc
 
-    images = mmc.find(limit=10)
+    images = mmc.find(sort=[('_id', DESCENDING)], limit=10)
     dt = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return template.render(images=images, dt=dt)
 
