@@ -2,28 +2,24 @@
 #-*-coding:utf-8-*-
 
 from flask import Blueprint,request,url_for,render_template
-from jinja2 import Environment, FileSystemLoader
 from pymongo import *
-import os
 import datetime
+import random
 
 jsmm = Blueprint('jsmm', __name__,
                         template_folder='templates')
 
 @jsmm.route('/jsmm')
 def get_mm_images():
-    THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-    env = Environment(loader=FileSystemLoader(THIS_DIR))
-    template = env.get_template('templates/jsmm.tpl')
-    items = []
-    
     client = MongoClient("localhost", 27017)
     db = client.mmdb
     mmc = db.mmc
 
     images = mmc.find(sort=[('_id', DESCENDING)], limit=10)
     dt = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return template.render(images=images, dt=dt)
+    imgs = list(images)
+    covers = [random.sample(img['alias'], 1)[0] for img in imgs]
+    return render_template('jsmm.tpl', images=imgs, covers=covers, dt=dt)
 
 @jsmm.route('/immall')
 def get_mm_all_images():
@@ -42,11 +38,5 @@ def get_mm_all_images():
     alt = images[0]['alt']
     dt = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-    env = Environment(loader=FileSystemLoader(THIS_DIR))
-    template = env.get_template('templates/mmlist.tpl')
-    items = []
-    
-    #return template.render(mmlist=mmlist, aliaslist=aliaslist, dt=dt, alt=alt)
     return render_template('mmlist.tpl', mmlist=mmlist, aliaslist=aliaslist, dt=dt, alt=alt)
 
