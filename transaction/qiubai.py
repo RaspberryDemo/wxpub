@@ -8,7 +8,7 @@ class QbAPI():
     def __init__(self):
         pass
 
-    def get(self, cnt=5):
+    def getJson(self, cnt=5, reqp=False):
         page = random.randint(1,30)
         url = base_url % page
 
@@ -20,7 +20,14 @@ class QbAPI():
                 txt = link.string.strip('\n').strip('\r\n')
                 jokes.append(txt)
         sa = random.sample(jokes, cnt)
+        if reqp:
+            return sa, page
+        return sa
+
+    def get(self, cnt=5):
+        sa, page = self.getJson(cnt=cnt, reqp=True)
         idx = 1
+        data=''
         for item in sa:
             data = data + '[%d]' % idx + item + '\n\n'
             idx = idx + 1

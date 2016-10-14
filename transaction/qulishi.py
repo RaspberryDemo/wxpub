@@ -15,7 +15,6 @@ class MyHTMLParser(HTMLParser):
         self.alt = []
 
     def handle_starttag(self, tag, attrs):
-        #print "Encountered the beginning of a %s tag" % tag
         if tag == "a":
             if len(attrs) == 0: pass
             else:
@@ -41,7 +40,6 @@ class QulishiAPI():
                 page = random.randint(1, 200)
                 headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.103 Safari/    537.36'}
                 content = requests.get(QULISHI_URL % page, headers=headers).content
-                print content
                 data = content.decode("utf8", "ignore")
                 break
             except:
