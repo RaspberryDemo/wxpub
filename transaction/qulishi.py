@@ -13,7 +13,7 @@ class MyHTMLParser(HTMLParser):
         self.art_links = []
         self.img_links = []
         self.alt = []
- 
+
     def handle_starttag(self, tag, attrs):
         #print "Encountered the beginning of a %s tag" % tag
         if tag == "a":
@@ -35,7 +35,7 @@ class QulishiAPI():
     def __init__(self):
         pass
 
-    def get(self):
+    def getJson(self, cnt=5):
         while True:
             try:
                 page = random.randint(1, 200)
@@ -51,8 +51,8 @@ class QulishiAPI():
         hp.feed(data)
         hp.close()
 
-        selected = random.sample(range(0, 20), 5)
-        
+        selected = random.sample(range(0, 20), cnt)
+
         items = []
         for i in selected:
             it = {}
@@ -61,10 +61,11 @@ class QulishiAPI():
             it['url'] = hp.art_links[i]
             it['description'] = ''
             items.append(it)
-        print items
-        return 'news', items
-    
+        return items
 
+    def get(self):
+        items = self.getJson()
+        return 'news', items
 
 if __name__ == "__main__":
     qapi = QulishiAPI()

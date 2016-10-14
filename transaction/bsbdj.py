@@ -12,7 +12,7 @@ class MyHTMLParser(HTMLParser):
         self.flag = 0
         self.links = []
         self.cnt = 0
- 
+
     def handle_starttag(self, tag, attrs):
         #print "Encountered the beginning of a %s tag" % tag
         if tag == "div":
@@ -22,7 +22,7 @@ class MyHTMLParser(HTMLParser):
                     if variable == "class" and value == "j-r-list-c-desc":
                         #self.links.append(value)
                         self.flag = 1
-                        
+
     def handle_data (self, data):
         if self.flag == 1:
             self.cnt += 1
@@ -33,7 +33,7 @@ class BsAPI():
     def __init__(self):
         pass
 
-    def get(self, cnt=5):
+    def getJson(self, cnt=5):
         if cnt > 10:
             cnt = 10
         page = random.randint(1,100)
@@ -48,7 +48,10 @@ class BsAPI():
         data = ''
         ll = range(len(hp.links))
         s = random.sample(ll, cnt)
-        #for i in range(1, cnt+1):
+        return s
+
+    def get(self, cnt=5):
+        s = self.getJson(cnt)
         for i in s:
             data = data + '[%d]' % i + hp.links[i] + '\n\n'
         return 'text', data+'Page %s' %page
