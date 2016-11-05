@@ -26,9 +26,10 @@ def check_status():
     up = True if 'RUNNING' in result[1] else False
     it = {'service': u'公众号定时推送', 'up': up}
     items.append(it)
-    result= commands.getstatusoutput('supervisorctl status iss')
+
+    result= commands.getstatusoutput('curl --socks5 127.0.0.1:1080 --connect-timeout 5 -s -o /dev/null -I -w %{http_code} https://www.google.com.hk')
     print result
-    up = True if 'RUNNING' in result[1] else False
+    up = True if '200' in result[1] else False
     it = {'service': u'虚拟网服务', 'up': up}
     items.append(it)
     return template.render(items=items)
