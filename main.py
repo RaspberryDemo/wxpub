@@ -8,6 +8,7 @@ from web.monitor import monitor
 from web.jsmm import jsmm
 from web.api import api
 from web.dytt import dytt
+from web.xyy import xyy
 
 import logging
 
@@ -16,6 +17,7 @@ app.register_blueprint(monitor)
 app.register_blueprint(jsmm)
 app.register_blueprint(api)
 app.register_blueprint(dytt)
+app.register_blueprint(xyy)
 
 TOKEN = 'wexin123'
 
