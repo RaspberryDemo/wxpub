@@ -23,7 +23,7 @@
    <img src="{{ url_for('static', filename=covers[loop.index0]) }}" alt="{{ image.alt }}" />
    </a>
    </div>
-   <div class="info"><span>{{ dt }} 发布</span><span class="like">浏览(100+)</span></div>
+   <div class="info"><span>{{ dt }} {{ source }}</span><span class="like">浏览(100+)</span></div>
    </li>
    {% endfor %}
    </ul>
