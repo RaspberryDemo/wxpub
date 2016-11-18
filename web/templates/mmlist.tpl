@@ -19,9 +19,9 @@
    <a href="">{{ alt }} - {{ loop.index }}</a>
    </h2>
    <div class="pic">
-   <a href="{{ (url_for('static', filename=alias)) }}">
+   <!-- <a href="{{ (url_for('static', filename=alias)) }}"> -->
       <img src="{{ (url_for('static', filename=alias)) }}" alt="{{ alt }}" />
-   </a>
+   <!-- </a> -->
    </div>
    <div class="info"><span>{{ dt }} {{ source }}</span><span class="like">浏览(100+)</span></div>
    </li>
