@@ -27,5 +27,31 @@
    </li>
    {% endfor %}
    </ul>
+   <!-- <div class="page"><ul><li class="pre"><i>上一页</i></li><li>第{{ page }}页</li><li class="next"><a href="#">下一页</a></li></ul></div> -->
+
+   <div class="page">
+     <ul>
+     
+     <li class="pre">
+     {% if pre %}
+     <a href="?p={{ pre }}">上一页</a>
+     {% else %}
+     <i>上一页</i>
+     {% endif %}
+     </li>
+     
+     <li>第{{ page }}/{{ total }}页</li>
+     
+     <li class="next">
+     {% if nxt %}
+     <a href="?p={{ nxt }}">下一页</a>
+     {% else %}
+     <i>下一页</i>
+     {% endif %}
+     </li>
+     
+     </ul>
+   </div>
+
  </body>
 </html>

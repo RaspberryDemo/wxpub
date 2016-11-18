@@ -6,22 +6,32 @@ from pymongo import *
 import datetime
 import random
 import time
+import math
 
 jsmm = Blueprint('jsmm', __name__,
                         template_folder='templates')
+size = 15
 
 @jsmm.route('/jsmm')
 def get_mm_images():
+    p = request.args.get('p')
+    p = int(p) if p else 1
+    
     client = MongoClient("localhost", 27017)
     db = client.mmdb
     mmc = db.mmc
 
-    images = mmc.find(sort=[('_id', DESCENDING)], limit=15)
+    total = mmc.count()
+    total = int(math.ceil(total/(size+0.0)))
+    images = mmc.find(sort=[('_id', DESCENDING)], skip=(p-1)*size, limit=size)
     imgs = list(images)
     covers = [random.sample(img['alias'], 1)[0] for img in imgs]
     dts = [time.strftime("%Y-%m-%d %H:%M:%S",time.localtime(img['record'])) for img in imgs]
     sources = [img['source'] for img in imgs]
-    resp =make_response(render_template('jsmm.tpl', images=imgs, covers=covers, dts=dts, sources=sources))
+    pre = p-1
+    nxt = 0 if p==total else p+1
+    resp =make_response(render_template('jsmm.tpl', images=imgs, covers=covers,
+        dts=dts, sources=sources, page=p, pre=pre, nxt=nxt, total=total))
     resp.headers['Cache-Control'] = 'no-cache'
     return resp
 
