@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding:utf-8-*-
 
-from flask import Blueprint
+from flask import Blueprint, redirect
 from jinja2 import Environment, FileSystemLoader
 import os
 import commands
@@ -33,3 +33,9 @@ def check_status():
     it = {'service': u'虚拟网服务', 'up': up}
     items.append(it)
     return template.render(items=items)
+
+
+@monitor.route('/rebootvpn/<idx>')
+def reboot_vpn(idx):
+    os.system('/home/pi/www/iss/go.py %s' % idx)
+    return 'ok'

@@ -34,5 +34,9 @@
         </div>
         {% endfor %}
     </div>
+    <br>
+    <a href="/rebootvpn/0" class="weui_btn weui_btn_primary">重启VPN服务1</a>
+    <a href="/rebootvpn/1" class="weui_btn weui_btn_primary">重启VPN服务2</a>
+    <a href="/rebootvpn/2" class="weui_btn weui_btn_primary">重启VPN服务3</a>
     </body>
 </html>
