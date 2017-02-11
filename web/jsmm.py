@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*-coding:utf-8-*-
 
-from flask import Blueprint,request,url_for,render_template, make_response
+from flask import Blueprint,request,url_for,render_template, make_response, jsonify
 from pymongo import *
 import datetime
 import random
@@ -11,6 +11,22 @@ import math
 jsmm = Blueprint('jsmm', __name__,
                         template_folder='templates')
 size = 15
+
+@jsmm.route('/jsmm.json')
+def get_mm_images_json():
+    client = MongoClient("localhost", 27017)
+    db = client.mmdb
+    mmc = db.mmc
+    
+    total = mmc.count()
+    skip = random.randint(0, total-size-1)
+    images = mmc.find(sort=[('_id', DESCENDING)], skip=skip, limit=size)
+    imgs = list(images)
+    #covers = [random.sample(img['alias'], 1)[0] for img in imgs]
+    print imgs
+    for i in imgs:
+        del i['_id']
+    return jsonify(data=imgs)
 
 @jsmm.route('/jsmm')
 def get_mm_images():
