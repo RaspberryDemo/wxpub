@@ -12,7 +12,7 @@ def get_latest_movies():
     client = MongoClient("localhost", 27017)
     db = client.dydb
     cols = db.cols
-    movies = cols.find(sort=[('_id', DESCENDING)], limit=10)
+    movies = cols.find(sort=[('_id', DESCENDING)], limit=15)
     movies = list(movies)
     for m in movies:
         del m['_id']
