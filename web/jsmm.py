@@ -7,10 +7,12 @@ import datetime
 import random
 import time
 import math
+from PIL import Image
 
 jsmm = Blueprint('jsmm', __name__,
                         template_folder='templates')
 size = 15
+basepath = '/home/pi/www/wxpub/static/'
 
 @jsmm.route('/jsmm.json')
 def get_mm_images_json():
@@ -26,6 +28,33 @@ def get_mm_images_json():
     print imgs
     for i in imgs:
         del i['_id']
+    return jsonify(data=imgs)
+
+@jsmm.route('/jsmm2.json')
+def get_mm_images_json2():
+    client = MongoClient("localhost", 27017)
+    db = client.mmdb
+    mmc = db.mmc
+    
+    total = mmc.count()
+    skip = random.randint(0, total-size-1)
+    images = mmc.find(sort=[('_id', DESCENDING)], skip=skip, limit=size)
+    imgs = list(images)
+    print imgs
+    for i in imgs:
+        del i['_id']
+    for img in imgs:
+        newimgs = []
+        for a in img['alias']:
+            try:
+                sz = Image.open(basepath+a).size
+                iminfo = {'name': a, 'width': sz[0], 'height': sz[1]}
+                newimgs.append(iminfo)
+            except:
+                print 'open image %s failed' % a
+        img['alias'] = newimgs
+    for img in imgs:
+        print img['alias']
     return jsonify(data=imgs)
 
 @jsmm.route('/jsmm')

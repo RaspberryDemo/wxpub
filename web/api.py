@@ -18,5 +18,5 @@ def get_qulishi():
 @api.route('/api/humor.json')
 def get_humor():
     qb = QbAPI()
-    return jsonify(data=qb.getJson(10))
+    return jsonify(data=qb.getJson(15))
 
