@@ -22,9 +22,9 @@ def get_mm_images_json():
     
     total = mmc.count()
     skip = random.randint(0, total-size-1)
-    images = mmc.find(sort=[('_id', DESCENDING)], skip=skip, limit=size)
+    #images = mmc.find(sort=[('_id', DESCENDING)], skip=skip, limit=size)
+    images = mmc.find(skip=skip, limit=size)
     imgs = list(images)
-    #covers = [random.sample(img['alias'], 1)[0] for img in imgs]
     print imgs
     for i in imgs:
         del i['_id']
@@ -38,9 +38,9 @@ def get_mm_images_json2():
     
     total = mmc.count()
     skip = random.randint(0, total-size-1)
-    images = mmc.find(sort=[('_id', DESCENDING)], skip=skip, limit=size)
+    #images = mmc.find(sort=[('_id', DESCENDING)], skip=skip, limit=size)
+    images = mmc.find(skip=skip, limit=size)
     imgs = list(images)
-    print imgs
     for i in imgs:
         del i['_id']
     for img in imgs:
