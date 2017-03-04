@@ -28,6 +28,7 @@ def get_mm_images_json():
     print imgs
     for i in imgs:
         del i['_id']
+    client.close()
     return jsonify(data=imgs)
 
 @jsmm.route('/jsmm2.json')
@@ -55,6 +56,7 @@ def get_mm_images_json2():
         img['alias'] = newimgs
     for img in imgs:
         print img['alias']
+    client.close()
     return jsonify(data=imgs)
 
 @jsmm.route('/jsmm')
@@ -78,6 +80,7 @@ def get_mm_images():
     resp =make_response(render_template('jsmm.tpl', images=imgs, covers=covers,
         dts=dts, sources=sources, page=p, pre=pre, nxt=nxt, total=total))
     resp.headers['Cache-Control'] = 'no-cache'
+    client.close()
     return resp
 
 @jsmm.route('/immall')
@@ -99,5 +102,6 @@ def get_mm_all_images():
 
     resp = make_response(render_template('mmlist.tpl', aliaslist=aliaslist, dt=dt, alt=alt, source=source))
     resp.headers['Cache-Control'] = 'no-cache'
+    client.close()
     return resp
 

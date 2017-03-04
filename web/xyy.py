@@ -20,6 +20,7 @@ def get_xyy_json():
     findings = cols.find(sort=[('_id', DESCENDING)], limit=size)
     findings = list(findings)
     findings = [{'title': f['title'], 'content': f['content']} for f in findings]
+    client.close()
     return jsonify(data=findings)
 
 @xyy.route('/xyy')
@@ -33,5 +34,6 @@ def get_xyy_article():
     findings = [{'title': f['title'], 'content': f['content'].replace('\n', '<br/>')} for f in findings]
     resp =make_response(render_template('xyy.tpl', findings=findings))
     resp.headers['Cache-Control'] = 'no-cache'
+    client.close()
     return resp
 

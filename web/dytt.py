@@ -18,5 +18,6 @@ def get_latest_movies():
         del m['_id']
         del m['timestamp']
     print movies
+    client.close()
     return jsonify(data=movies)
 
